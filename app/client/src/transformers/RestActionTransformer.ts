@@ -57,7 +57,6 @@ export const transformRestAction = (data: ApiAction): ApiAction => {
 function removeEmptyPairs(keyValueArray: any) {
   if (!keyValueArray || !keyValueArray.length) return keyValueArray;
   return keyValueArray.filter(
-    (data: any) =>
-      (data && !_.isEmpty(data.key)) || (data && !_.isEmpty(data.value)),
+    (data: any) => !_.isEmpty(data.key) || !_.isEmpty(data.value),
   );
 }
