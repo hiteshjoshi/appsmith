@@ -55,8 +55,19 @@ export const transformRestAction = (data: ApiAction): ApiAction => {
 };
 
 function removeEmptyPairs(keyValueArray: any) {
-  if (!keyValueArray || !keyValueArray.length) return keyValueArray;
+  // To handle the case where a user fills the second key-value pair before the first one
+  // we check keyValueArray.includes(undefined) or keyValueArray.includes(null), and do not filter out the first key-value pair
+  // to maintain sync between the UI and the form state
+
+  if (
+    !keyValueArray ||
+    !keyValueArray.length ||
+    keyValueArray.includes(undefined) ||
+    keyValueArray.includes(null)
+  )
+    return keyValueArray;
   return keyValueArray.filter(
-    (data: any) => !_.isEmpty(data.key) || !_.isEmpty(data.value),
+    (data: any) =>
+      !_.isEmpty(data.key) || !_.isEmpty(data.value) || !_.isEmpty(data.type),
   );
 }
