@@ -20,7 +20,6 @@ import { useDispatch } from "react-redux";
 import useClick from "utils/hooks/useClick";
 import { ReduxActionTypes } from "constants/ReduxActionConstants";
 import TooltipComponent from "components/ads/Tooltip";
-import { Boundary } from "@blueprintjs/core/lib/esnext/common";
 
 export enum EntityClassNames {
   CONTEXT_MENU = "entity-context-menu",
