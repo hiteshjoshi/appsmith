@@ -101,6 +101,7 @@ import { getIsSafeRedirectURL } from "utils/helpers";
 import history from "utils/history";
 import getFeatureFlags from "utils/featureFlags";
 import { setIsImportAppViaGitModalOpen } from "actions/gitSyncActions";
+import TooltipComponent from "components/ads/Tooltip";
 
 const OrgDropDown = styled.div`
   display: flex;
@@ -805,12 +806,20 @@ function ApplicationsSection(props: any) {
                   <OrgShareUsers>
                     <UserImageContainer>
                       {userRoles.slice(0, 5).map((el: UserRoles) => (
-                        <ProfileImage
-                          className="org-share-user-icons"
+                        <TooltipComponent
+                          content={
+                            el.username +
+                            (currentUser?.email === el.username ? " (you)" : "")
+                          }
                           key={el.username}
-                          source={`/api/${UserApi.photoURL}/${el.username}`}
-                          userName={el.name ? el.name : el.username}
-                        />
+                          position={Position.BOTTOM}
+                        >
+                          <ProfileImage
+                            className="org-share-user-icons"
+                            source={`/api/${UserApi.photoURL}/${el.username}`}
+                            userName={el.name ? el.name : el.username}
+                          />
+                        </TooltipComponent>
                       ))}
                       {userRoles.length > 5 ? (
                         <ProfileImage

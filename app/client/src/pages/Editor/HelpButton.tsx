@@ -11,6 +11,8 @@ import { Theme } from "constants/DefaultTheme";
 import { getCurrentUser } from "../../selectors/usersSelectors";
 import { useSelector } from "react-redux";
 import { bootIntercom } from "utils/helpers";
+import TooltipComponent from "components/ads/Tooltip";
+import { createMessage, HELP_RESOURCE_TOOLTIP } from "constants/messages";
 
 const HelpPopoverStyle = createGlobalStyle`
   .bp3-popover.bp3-minimal.navbar-help-popover {
@@ -32,13 +34,18 @@ const StyledTrigger = styled.div`
 `;
 
 const Trigger = withTheme(({ theme }: { theme: Theme }) => (
-  <StyledTrigger>
-    <Icon
-      fillColor={theme.colors.globalSearch.helpIcon}
-      name="help"
-      size={IconSize.XS}
-    />
-  </StyledTrigger>
+  <TooltipComponent
+    content={createMessage(HELP_RESOURCE_TOOLTIP)}
+    position={Position.BOTTOM}
+  >
+    <StyledTrigger>
+      <Icon
+        fillColor={theme.colors.globalSearch.helpIcon}
+        name="help"
+        size={IconSize.XS}
+      />
+    </StyledTrigger>
+  </TooltipComponent>
 ));
 
 const onOpened = () => {

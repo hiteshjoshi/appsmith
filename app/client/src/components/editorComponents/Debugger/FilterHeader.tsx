@@ -7,6 +7,9 @@ import { useDispatch } from "react-redux";
 
 import { clearLogs } from "actions/debuggerActions";
 import { Classes } from "components/ads/common";
+import TooltipComponent from "components/ads/Tooltip";
+import { Position } from "@blueprintjs/core";
+import { CLEAR_LOG_TOOLTIP, createMessage } from "constants/messages";
 
 const Wrapper = styled.div`
   flex-direction: row;
@@ -57,11 +60,16 @@ function FilterHeader(props: FilterHeaderProps) {
 
   return (
     <Wrapper>
-      <Icon
-        name="cancel"
-        onClick={() => dispatch(clearLogs())}
-        size={IconSize.XL}
-      />
+      <TooltipComponent
+        content={createMessage(CLEAR_LOG_TOOLTIP)}
+        position={Position.BOTTOM}
+      >
+        <Icon
+          name="cancel"
+          onClick={() => dispatch(clearLogs())}
+          size={IconSize.XL}
+        />
+      </TooltipComponent>
       <div className="input-container">
         <TextInput
           className="debugger-search"

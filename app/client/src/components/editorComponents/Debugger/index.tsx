@@ -14,6 +14,9 @@ import { Layers } from "constants/Layers";
 import { stopEventPropagation } from "utils/AppsmithUtils";
 import { getMessageCount } from "selectors/debuggerSelectors";
 import getFeatureFlags from "utils/featureFlags";
+import TooltipComponent from "components/ads/Tooltip";
+import { Position } from "@blueprintjs/core";
+import { createMessage, DEBUGGER_TOOLTIP } from "constants/messages";
 
 const Container = styled.div<{ errorCount: number; warningCount: number }>`
   z-index: ${Layers.debugger};
@@ -149,7 +152,13 @@ export function DebuggerTrigger() {
       errorCount={messageCounters.errors}
       warningCount={messageCounters.warnings}
     >
-      <Icon name="bug" onClick={onClick} size={IconSize.XL} />
+      <TooltipComponent
+        boundary="viewport"
+        content={createMessage(DEBUGGER_TOOLTIP)}
+        position={Position.TOP_RIGHT}
+      >
+        <Icon name="bug" onClick={onClick} size={IconSize.XL} />
+      </TooltipComponent>
       {!!messageCounters.errors && (
         <div className="debugger-count t--debugger-count">
           {totalMessageCount > 9 ? "9+" : totalMessageCount}
